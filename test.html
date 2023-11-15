@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NWS WeatherPortal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+            padding: 0.5em;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1em;
+            font-weight: bold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4em 0;
+            background-color: #00bcd4;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1em 2em;
+            margin-top: 1em;
+            font-size: 1em;
+            text-decoration: none;
+            background-color: #fff;
+            color: #00bcd4;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #ddd;
+        }
+
+        /* Add more styling for other sections as needed */
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NWS WeatherPortal</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Weather</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+
+      <!-- Call to action -->
+    <section class="hero">
+        <h1>Your Weather Forecast</h1>
+        <p>Get accurate and up-to-date weather information for any location.</p>
+        <a href="#" class="cta-button">Explore Weather</a>
+    </section>
+
+    <!-- Current Weather -->
+    <section>
+      <h1>Local Weather Information</h1>
+      <button onclick="test();">Get Local Weather Information</button>
+    </section>
+
+    <!-- Short About Statement -->
+    <section>
+      <h1>Introduction</h1>
+      <p>Welcome to NWS WeatherPortal, your go-to destination for accurate and up-to-date weather information. We are passionate about providing users with a seamless and insightful weather experience. Whether you're planning your day, a trip, or just curious about the forecast, we've got you covered.</p>
+      <h1>Background</h1>
+      <p>Developed and designed by Samuel Kinaitis, NWS WeatherPortal was born [Content]</p>
+      <h1>Mission/Purpose</h1>
+      <p>The mission of NWS WeatherPortal is clear: to deliver accurate, reliable, and user-friendly weather information to individuals and communities worldwide. I believe that understanding the weather shouldn't be a complex task, and everyone deserves access to forecasts that are not only precise but also easy to comprehend. By providing a comprehensive suite of weather services, we aim to be your trusted companion in navigating the ever-changing elements.</p>
+      <h1>Values</h1>
+      <p>At the core of NWS WeatherPortal are values that guide our every decision and interaction. Transparency, accuracy, and user-centricity are the cornerstones of our approach. We are committed to maintaining the highest standards of integrity in delivering weather data, ensuring that our users can rely on us for information that impacts their daily lives.</p>
+      <h1>Expertise/Passion</h1>
+      <p>The team behind NWS WeatherPortal is fueled by a shared passion for meteorology and a dedication to technological innovation. With backgrounds in climatology, data science, and user experience design, our team brings a unique blend of skills to ensure that you receive the most comprehensive and user-friendly weather services. We are not just weather enthusiasts; we are committed to pushing the boundaries of what's possible in delivering personalized and insightful weather experiences.</p>
+    </section>
+
+    <!-- Popular Areas Current Weather Data -->
+
+    </main>
+
+
+    <footer>
+        &copy; 2023 NWS WeatherPortal | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | Contact: samuel.kinaitis@gmail.com
+    </footer>
+
+</body>
+<script src="/api.js"></script>
+</html>
