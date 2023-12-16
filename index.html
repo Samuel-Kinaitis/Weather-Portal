@@ -3,36 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="icon" type="image/png" href="/tempfavicon.png">
+    <title>NWS WeatherPortal</title>
+    <style>
+.CtA {
+    text-align: center;
+    padding: 4em 0;
+    color: #fff;
+}
+    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
+
+    <header>
         <h1>NWS WeatherPortal</h1>
-        <ul>
-            <li><a href="/index.html">Home</a></li>
+    </header>
 
-            <li><a href="/forecast.html">Forecast</a></li>
-
-            <li><a href="/alerts.html">Alerts</a></li>
-        </ul>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="weather.html">Weather</a>
+        <a href="alerts.html">Alerts</a>
     </nav>
+
+    <!-- Call to action () -->
+    <section class="CtA">
+        <h1>Your Weather Forecast</h1>
+        <p>Get accurate and up-to-date weather information for any location.</p>
+        <a href="weather.html"><button>Explore Weather</button></a>
+        
+    </section>
+
     <main>
-        <h1>Home</h1>
-        <form action="">
-            <input type="text">
-        </form>
-        <p>Contect here Fool</p>
+    <!-- Current Weather (Put poplar areas (New York, Chigcho, Tampa, Detroit, Las Vagas,))-->
+    <section>
+      <h1>Local Weather Information</h1>
+      <button onclick="test();">Get Local Weather Information</button>
+    </section>
+
+    <!-- Short About Statement -->
+    <section>
+      <h1>Introduction</h1>
+      <p>Welcome to NWS WeatherPortal, your go-to destination for accurate and up-to-date weather information. We are passionate about providing users with a seamless and insightful weather experience. Whether you're planning your day, a trip, or just curious about the forecast, we've got you covered.</p>
+      <h1>Background</h1>
+      <p>Developed and designed by Samuel Kinaitis, NWS WeatherPortal was born [Content]</p>
+      <h1>Mission/Purpose</h1>
+      <p>The mission of NWS WeatherPortal is clear: to deliver accurate, reliable, and user-friendly weather information to individuals and communities worldwide. I believe that understanding the weather shouldn't be a complex task, and everyone deserves access to forecasts that are not only precise but also easy to comprehend. By providing a comprehensive suite of weather services, we aim to be your trusted companion in navigating the ever-changing elements.</p>
+      <h1>Values</h1>
+      <p>At the core of NWS WeatherPortal are values that guide our every decision and interaction. Transparency, accuracy, and user-centricity are the cornerstones of our approach. We are committed to maintaining the highest standards of integrity in delivering weather data, ensuring that our users can rely on us for information that impacts their daily lives.</p>
+      <h1>Expertise/Passion</h1>
+      <p>The team behind NWS WeatherPortal is fueled by a shared passion for meteorology and a dedication to technological innovation. With backgrounds in climatology, data science, and user experience design, our team brings a unique blend of skills to ensure that you receive the most comprehensive and user-friendly weather services. We are not just weather enthusiasts; we are committed to pushing the boundaries of what's possible in delivering personalized and insightful weather experiences.</p>
+    </section>
+
+    <!-- Popular Areas Current Weather Data -->
+
     </main>
+
+
     <footer>
-        <ul>
-            <li><a href="/tos.html">Terms of Service</a></li>
-
-            <li><a href="/contact.html">Contact Us</a></li>
-
-            <li><a href="/about.html">About Us</a></li>
-        </ul>
+        &copy; 2023 NWS WeatherPortal | <a href="#">Services</a> | <a href="#">Terms of Use</a> | <a href="">Contact:</a> <a href="mailto:samuel.kinaitis@gmail.com">samuel.kinaitis@gmail.com</a>
     </footer>
+
 </body>
 <script src="/api.js"></script>
 </html>

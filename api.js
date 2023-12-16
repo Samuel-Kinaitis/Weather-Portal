@@ -92,41 +92,65 @@ console.log("test");
     //   });
 
     function test(){
-      // Check if the Geolocation API is supported by the browser
-      if ('geolocation' in navigator) {
-        // Use the Geolocation API to get the user's current position
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                // Success callback
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
 
-                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-                
-                // Now you can use the obtained latitude and longitude for your purposes
-            },
-            function (error) {
-                // Error callback
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        console.error('User denied the request for Geolocation.');
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        console.error('Location information is unavailable.');
-                        break;
-                    case error.TIMEOUT:
-                        console.error('The request to get user location timed out.');
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        console.error('An unknown error occurred.');
-                        break;
-                }
-            }
-        );
-      } else {
-        // Geolocation is not supported by the browser
-        console.error('Geolocation is not supported by your browser.');
-      }
+      //Check if location is storaged (Check for how old last stored location is)
+
+
+          // Check if the Geolocation API is supported by the browser
+    if ('geolocation' in navigator) {
+      // Show loading message
+      showLoadingMessage();
+
+      // Use the Geolocation API to get the user's current position
+      navigator.geolocation.getCurrentPosition(
+          function (position) {
+              // Hide loading message
+              hideLoadingMessage();
+
+              // Success callback
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+
+              console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+              
+              // Now you can use the obtained latitude and longitude for your purposes
+          },
+          function (error) {
+              // Hide loading message
+              hideLoadingMessage();
+
+              // Error callback
+              switch (error.code) {
+                  case error.PERMISSION_DENIED:
+                      console.error('User denied the request for Geolocation.');
+                      break;
+                  case error.POSITION_UNAVAILABLE:
+                      console.error('Location information is unavailable.');
+                      break;
+                  case error.TIMEOUT:
+                      console.error('The request to get user location timed out.');
+                      break;
+                  case error.UNKNOWN_ERROR:
+                      console.error('An unknown error occurred.');
+                      break;
+              }
+          }
+      );
+    } else {
+      // Geolocation is not supported by the browser
+      console.error('Geolocation is not supported by your browser.');
+    }
+
+    function showLoadingMessage() {
+      // You can implement your loading UI here, e.g., display a loading spinner or message
+      console.log('Getting current location, please stand by...');
+    }
+
+    function hideLoadingMessage() {
+      // You can implement logic to hide your loading UI here
+      console.log('Location request complete.');
+    }
+
     }
 
 //NWS API

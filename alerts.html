@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NWS WeatherPortal</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .alert-item {
+            border: 1px solid #ddd;
+            padding: 1em;
+            margin-bottom: 1em;
+            background-color: #f9f9f9;
+            color: black;
+        }
+
+        .alert-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .alert-description {
+            margin-top: 0.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NWS Alerts Viewer</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="weather.html">Weather</a>
+        <a href="alerts.html">Alerts</a>
+    </nav>
+
+    <main>
+        <h1>Current Alerts</h2>
+        <div id="alerts-container"></div>
+    </main>
+
+    <footer>
+        &copy; 2023 NWS WeatherPortal | <a href="#">Services</a> | <a href="#">Terms of Use</a> | <a href="">Contact:</a> <a href="mailto:samuel.kinaitis@gmail.com">samuel.kinaitis@gmail.com</a>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertsContainer = document.getElementById('alerts-container');
+
+        // Construct the URL for the Alerts by Area endpoint without specifying a specific location
+        const alertsUrl = 'https://api.weather.gov/alerts';
+
+        // Fetch the alerts data
+        fetch(alertsUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the alerts data
+                displayAlerts(data.features);
+            })
+            .catch(error => {
+                console.error('Error fetching alerts data:', error);
+            });
+
+        function displayAlerts(alerts) {
+            // Filter out alerts with specific titles
+            const filteredAlerts = alerts.filter(alert => {
+                const undesiredTitles = ["Test Message"];
+
+                // Check if the alert title is in the undesiredTitles array
+                return !undesiredTitles.includes(alert.properties.event);
+            });
+
+            if (filteredAlerts.length === 0) {
+                alertsContainer.innerHTML = '<p>No relevant alerts currently.</p>';
+                return;
+            }
+
+            alertsContainer.innerHTML = filteredAlerts.map(alert => {
+                // const sentTime = 
+
+                return `
+                    <div class="alert-item">
+                        <p class="alert-title">${alert.properties.event}</p>
+                        <p class="alert-sent-time">Sent: ${new Date(alert.properties.sent).toLocaleString()}</p>
+                        <p class="alert-description">${alert.properties.description}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+    });
+</script>
+
+</body>
+<script src="/api.js"></script>
+</html>
