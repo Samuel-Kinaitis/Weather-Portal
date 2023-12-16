@@ -126,9 +126,14 @@ footer a{
 }
 
 footer a:visited{
-    color: #f77062;
+    color: #f79e62;
 }
 
 footer a:active{
     color: #e8f762;
+}
+
+a:hover{
+    color: #f77062;
+    transition: color 0.3s;
 }
