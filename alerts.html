@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NWS WeatherPortal</title>
+    <title>Alerts Viewer</title>
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        .alert-item {
-            border: 1px solid #ddd;
-            padding: 1em;
-            margin-bottom: 1em;
-            background-color: #f9f9f9;
-            color: black;
-        }
+        
 
         .alert-title {
             font-size: 1.2em;
@@ -28,7 +22,7 @@
 <body>
 
     <header>
-        <h1>NWS Alerts Viewer</h1>
+        <h1>WeatherPortal Alerts</h1>
     </header>
 
     <nav>
@@ -39,12 +33,13 @@
     </nav>
 
     <main>
+        <p>Alerts by the National Weather Service</p>
         <h1>Current Alerts</h2>
         <div id="alerts-container"></div>
     </main>
 
     <footer>
-        &copy; 2023 NWS WeatherPortal | <a href="#">Services</a> | <a href="#">Terms of Use</a> | <a href="">Contact:</a> <a href="mailto:samuel.kinaitis@gmail.com">samuel.kinaitis@gmail.com</a>
+        &copy; 2023 NWS WeatherPortal | <a href="disclaimers.html">Disclaimers</a> | <a href="">Contact:</a> <a href="mailto:samuel.kinaitis@gmail.com">samuel.kinaitis@gmail.com</a>
     </footer>
 
     <script>
@@ -71,27 +66,36 @@
             });
 
         function displayAlerts(alerts) {
-            // Filter out alerts with specific titles
+            // Filter out alerts with specific titles (Test Messages)
             const filteredAlerts = alerts.filter(alert => {
                 const undesiredTitles = ["Test Message"];
 
                 // Check if the alert title is in the undesiredTitles array
-                return !undesiredTitles.includes(alert.properties.event);
+                if (undesiredTitles.includes(alert.properties.event)) {
+                    return false;
+                }
+
+                // Check if the alert has expired before push
+                return new Date(alert.properties.expires).getTime() > new Date().getTime();
             });
 
+            //If for some reason this are no active alerts 
             if (filteredAlerts.length === 0) {
                 alertsContainer.innerHTML = '<p>No relevant alerts currently.</p>';
                 return;
             }
 
-            alertsContainer.innerHTML = filteredAlerts.map(alert => {
-                // const sentTime = 
+            alertsContainer.innerHTML = filteredAlerts.map(alert => { 
 
                 return `
-                    <div class="alert-item">
+                    <div class="container">
                         <p class="alert-title">${alert.properties.event}</p>
-                        <p class="alert-sent-time">Sent: ${new Date(alert.properties.sent).toLocaleString()}</p>
-                        <p class="alert-description">${alert.properties.description}</p>
+                        <p>Sent: ${new Date(alert.properties.sent).toLocaleString()}</p>
+                        
+                        <p>Expires: ${new Date(alert.properties.expires).toLocaleString()}</p>
+                        <p class="alert-description">Description: ${alert.properties.description}</p>
+
+                        <p class="alert-description">Advisory: ${alert.properties.instruction}</p>
                     </div>
                 `;
             }).join('');
@@ -100,5 +104,4 @@
 </script>
 
 </body>
-<script src="/api.js"></script>
 </html>
