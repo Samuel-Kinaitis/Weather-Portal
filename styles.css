@@ -120,3 +120,15 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+footer a{
+    color: #00bcd4;
+}
+
+footer a:visited{
+    color: #f77062;
+}
+
+footer a:active{
+    color: #e8f762;
+}

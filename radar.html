@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherPortal</title>
     <style>
+        #RadarImg{
+            width: 75%;
 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
     </style>
     <link rel="stylesheet" href="styles.css">
 
@@ -39,8 +46,15 @@
     </nav>
 
     <main>
+            <img id="RadarImg" src="https://radar.weather.gov/ridge/standard/CONUS_loop.gif" alt="Live from the National Weather Service Radar">
 
-
+            <br>
+            <br>
+        <div class="container">
+            <p>This Radar is provided by the <a href="https://radar.weather.gov/region/conus/standard">National Weather Service Radar</a>.</p>
+            <br>
+            <p>If you would like to view more maps by the National Weather Service, you can find <a href="https://www.weather.gov/forecastmaps">those here</a>.</p>
+        </div>
     </main>
 
 
