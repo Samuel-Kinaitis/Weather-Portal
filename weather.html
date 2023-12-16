@@ -7,15 +7,24 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     #map {
-      height: 500px;
-      width: 90%;
+      height: 75vh;
+      width: 100%;
       
       display: block;
       margin-left: auto;
       margin-right: auto;
+      border-radius: 5px;
     }
   </style>
     <link rel="stylesheet" href="styles.css">
+        <!-- favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="media/favIcon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="media/favIcon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="media/favIcon/favicon-16x16.png">
+<link rel="manifest" href="media/favIcon/site.webmanifest">
+<link rel="mask-icon" href="media/favIcon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 <body>
 
@@ -24,27 +33,54 @@
     </header>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="weather.html">Weather</a>
-        <a href="alerts.html">Alerts</a>
-    </nav>
+      <a href="index.html">Home</a>
+      |
+      <a href="about.html">About</a>
+      |
+      <a href="weather.html">Weather</a>
+      |
+      <a href="alerts.html">Alerts</a>
+      |
+      <a href="radar.html">Radar</a>
+  </nav>
 
     <main>
 
-        <div>
-            <label for="city">Enter City:</label>
-            <input type="text" id="city" placeholder="City name" onkeydown="handleKeyPress(event)">
-          
-            <button onclick="searchCity()">Search</button>
-          </div>
-          
-          <div id="results"></div>
-          <br>
-          <div id="map"></div>
-          
-          
+      <div class="container">
+        <h1>Search Options</h1>
 
+        <p>Please keep in mind that you can only request weather information for locations within the United States.</p>
+        <br>
+
+        <div>
+          <h2>Geolocation</h2>
+        <p>Note that you might be asked to turn on your divices locator to use this search option.</p>
+        <button onclick="getUserLocation();">Geolocation</button>
+        </div>
+        <br>
+        <br>
+
+        <div>
+          <h2>Search by City Name</h2>
+        <p>Type the name of the city in the textbox to get weather information</p>
+      
+        <div>
+          <label for="city">Enter City:</label>
+          <input type="text" id="city" placeholder="City name" onkeydown="handleKeyPress(event)">
+          <button onclick="searchCity()">Search</button>
+          <div id="results"></div>
+        </div>
+        </div>
+        <br>
+        <br>
+
+        <h2>Search with Map</h2>
+        <p>Use the map blow by tapping/clicking on the desired city.</p>
+
+      </div>
+      <div id="map"></div>
+          <br>
+          <div id="weather-info"></div>
     </main>
 
 
@@ -53,117 +89,6 @@
     </footer>
 
 </body>
-<!-- <script src="/api.js"></script> -->
-
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-          <script>
-            var map = L.map('map').setView([39.8283, -98.5795], 4); // Centered on the United States
-          
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-          
-            var marker;
-          
-            // Event listener for map click
-            map.on('click', function(e) {
-              var clickedLatLng = e.latlng;
-              console.log("Clicked on: " + clickedLatLng.lat + ", " + clickedLatLng.lng);
-              findNearestTown(clickedLatLng);
-            });
-          
-            //input box enter
-            function handleKeyPress(event) {
-                // Check if the pressed key is Enter (keyCode 13)
-                if (event.keyCode === 13) {
-                  // Call your function here
-                  searchCity();
-                }
-              }
-          
-            function searchCity() {
-              var city = document.getElementById('city').value;
-          
-              if (!city) return;
-          
-              // Use OpenStreetMap Nominatim API to get coordinates
-              var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city},USA&bounded=1`;
-          
-              fetch(nominatimUrl)
-                .then(response => response.json())
-                .then(data => {
-                  if (data.length > 0) {
-                    // Display search results in a dropdown
-                    var resultsContainer = document.getElementById('results');
-                    resultsContainer.innerHTML = '';
-          
-                    var dropdown = document.createElement('select');
-                    dropdown.setAttribute('id', 'cityDropdown');
-                    dropdown.addEventListener('change', function() {
-                      var selectedCity = dropdown.options[dropdown.selectedIndex].text;
-                      displayCityOnMap(selectedCity);
-                    });
-          
-                    data.forEach(cityResult => {
-                      var option = document.createElement('option');
-                      option.value = cityResult.display_name;
-                      option.text = cityResult.display_name;
-                      dropdown.appendChild(option);
-                    });
-          
-                    resultsContainer.appendChild(dropdown);
-          
-                    // Display the first location on the map by default
-                    displayCityOnMap(data[0].display_name);
-                  } else {
-                    console.log("No results found for " + city);
-                  }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-          
-            function displayCityOnMap(selectedCity) {
-              // Use OpenStreetMap Nominatim API to get coordinates for the selected city
-              var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${selectedCity}&bounded=1`;
-          
-              fetch(nominatimUrl)
-                .then(response => response.json())
-                .then(data => {
-                  if (data.length > 0) {
-                    var coordinates = data[0];
-                    var latlng = L.latLng(coordinates.lat, coordinates.lon);
-                    map.flyTo(latlng, 10);
-          
-                    if (marker) {
-                      map.removeLayer(marker);
-                    }
-          
-                    marker = L.marker(latlng).addTo(map);
-                    console.log("Coordinates for " + selectedCity + ": " + coordinates.lat + ", " + coordinates.lon);
-                  } else {
-                    console.log("Coordinates not found for " + selectedCity);
-                  }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-          
-            function findNearestTown(clickedLatLng) {
-              // Use OpenStreetMap Nominatim API to find the nearest town
-              var nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${clickedLatLng.lat}&lon=${clickedLatLng.lng}&zoom=10&addressdetails=1,USA&bounded=1`;
-          
-              fetch(nominatimUrl)
-                .then(response => response.json())
-                .then(data => {
-                  var town = data.address.town || data.address.city || data.address.village || data.address.hamlet;
-                  var state = data.address.state;
-                  if (town && state) {
-                    console.log("Nearest town: " + town + ", " + state);
-                    displayCityOnMap(`${town}, ${state}`);
-                  } else {
-                    console.log("No town found near the clicked location");
-                  }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-          </script>
+<script src="/api.js"></script>
 </html>
