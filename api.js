@@ -146,6 +146,7 @@ function showWeather(latitude, longitude) {
       });
 
       document.getElementById('weather-info').innerHTML = weatherInfo;
+      document.getElementById('weather-info').classList.add("container");
       document.getElementById("weather-info").scrollIntoView({ behavior: "smooth" });
     })
     .catch(error => {
