@@ -122,15 +122,16 @@ function getUserLocation() {
 
 // Function to show weather information based on coordinates
 function showWeather(latitude, longitude) {
+  //requested area to be displayed on forcast
+  var requestArea;
   // Call National Weather Service API to get weather information
   const weatherApiUrl = `https://api.weather.gov/points/${latitude},${longitude}`;
-
   // Use Fetch API for Ajax request
   fetch(weatherApiUrl)
     .then(response => response.json())
     .then(data => {
       const forecastUrl = data.properties.forecast;
-      
+      requestArea = `for ${data.properties.relativeLocation.properties.city}, ${data.properties.relativeLocation.properties.state}`;
       // Another Fetch request for forecast data
       return fetch(forecastUrl);
     })
@@ -139,7 +140,7 @@ function showWeather(latitude, longitude) {
       // Display weather information for each forecast period
       const forecastPeriods = forecastData.properties.periods;
 
-      let weatherInfo = '<h2>Weather Information</h2>';
+      let weatherInfo = `<h2>Weather Information ${requestArea}</h2>`;
 
       forecastPeriods.forEach(period => {
         weatherInfo += `<p><strong>${period.name}:</strong> ${period.detailedForecast}</p>`;
